@@ -1,28 +1,16 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-
 const fileUpload = require("express-fileupload");
 const mail = require("./Routes/MailRoutes");
 
 const app = express();
 
-const allowedOrigins = [
-  "http://localhost:5174",
-  "http://localhost:5173",
-  "https://hotelsherpasoul.com",
-];
-
+// Enable CORS for all origins
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true); // Allow request
-      } else {
-        callback(new Error("Not allowed by CORS")); // Block others
-      }
-    },
-    credentials: true,
+    origin: true, // allow all origins
+    credentials: true, // allow cookies if needed
   })
 );
 
