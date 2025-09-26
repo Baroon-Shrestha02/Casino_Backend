@@ -168,8 +168,7 @@ const sendMail = async (req, res) => {
     <body>
       <div class="email-container">
         <div class="header">
-          <div class="logo">🎰</div>
-          <h1>New Course Inquiry</h1>
+          <h1>New Resume(CV) Received</h1>
           <p>Casino Training Nepal</p>
         </div>
         
