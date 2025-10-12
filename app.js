@@ -9,8 +9,13 @@ const app = express();
 // Enable CORS for all origins
 app.use(
   cors({
-    origin: true, // allow all origins
-    credentials: true, // allow cookies if needed
+    origin: [
+      "https://casinotrainingnepal.com", // your live frontend domain
+      "https://www.casinotrainingnepal.com", // include www version (optional)
+      "http://localhost:5173", // optional: local dev environment (React)
+    ],
+    methods: ["GET", "POST"],
+    credentials: true,
   })
 );
 
