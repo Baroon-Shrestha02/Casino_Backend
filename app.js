@@ -7,13 +7,21 @@ const mail = require("./Routes/MailRoutes");
 const app = express();
 
 // Enable CORS for all origins
+const allowedOrigins = [
+  "https://casinotrainingnepal.com",
+  "https://www.casinotrainingnepal.com",
+  "http://localhost:5173",
+];
+
 app.use(
   cors({
-    origin: [
-      "https://casinotrainingnepal.com", // your live frontend domain
-      "https://www.casinotrainingnepal.com", // include www version (optional)
-      "http://localhost:5173", // optional: local dev environment (React)
-    ],
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST"],
     credentials: true,
   })
@@ -28,6 +36,10 @@ app.use(
     tempFileDir: "./tmp/",
   })
 );
+
+app.get("/", (req, res) => {
+  res.send("Backend is running and CORS is configured ✅");
+});
 
 app.use("/casino", mail);
 

@@ -27,7 +27,7 @@ const sendMail = async (req, res) => {
       service: "gmail",
       auth: {
         user: "casinotrainingnepal@gmail.com",
-        pass: "rohjtqnywvgcjhjd", // use App Password
+        pass: "jfsnijmixdupizcg", // use App Password
       },
     });
 

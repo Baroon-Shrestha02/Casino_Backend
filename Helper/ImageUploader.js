@@ -8,7 +8,7 @@ const uploadFiles = async (files) => {
     "image/webp",
     "image/avif",
     "application/pdf",
-    "application/msword", // .doc
+    "application/msword",
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // .docx
   ];
 

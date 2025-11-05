@@ -1,5 +1,8 @@
 const nodemailer = require("nodemailer");
 const { uploadFiles } = require("../Helper/ImageUploader");
+const { Resend } = require("resend");
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const contactMail = async (req, res) => {
   try {
@@ -21,15 +24,6 @@ const contactMail = async (req, res) => {
         });
       }
     }
-
-    // Setup mail transporter
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: "casinotrainingnepal@gmail.com",
-        pass: process.env.app_pass, // App Password
-      },
-    });
 
     // Enhanced HTML email template
     const htmlTemplate = `
@@ -275,18 +269,24 @@ Casino Training Nepal - Professional Gaming & Hospitality Training
     `;
 
     // Mail options with enhanced template
+    // Mail options using Resend
     const mailOptions = {
-      from: "casinotrainingnepal@gmail.com",
-      to: "casinotrainingnepal@gmail.com",
+      from: "Casino Training Nepal <noreply@casinotrainingnepal.com>", // ✅ use your verified domain
+      to: "casinotrainingnepal@gmail.com", // ✅ where you want to receive inquiries
       subject: `🎓 New Course Inquiry from ${name || "Interested Student"} - ${
         course || "General Inquiry"
       }`,
       text: plainTextTemplate,
       html: htmlTemplate,
-      attachments,
+      attachments: attachments.length
+        ? attachments.map((file) => ({
+            filename: file.filename,
+            path: file.path,
+          }))
+        : undefined,
     };
 
-    await transporter.sendMail(mailOptions);
+    await resend.emails.send(mailOptions);
 
     res.status(200).json({
       success: true,
