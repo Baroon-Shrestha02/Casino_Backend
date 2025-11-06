@@ -22,9 +22,10 @@ const sendMail = async (req, res) => {
       }
     }
 
-    // Setup mail transporter
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 465, // or 587 if using secure: false
+      secure: true, // true for port 465, false for 587
       auth: {
         user: "casinotrainingnepal@gmail.com",
         pass: "jfsnijmixdupizcg", // use App Password
